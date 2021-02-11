@@ -21,7 +21,10 @@ public class App {
 
     public static void importData () {
         try {
-            inputScanner = new Scanner (new File("InputFiles\\a_example.in"));
+            Scanner filenameScanner = new Scanner (System.in);
+            System.out.print("Please enter file name: ");
+            inputScanner = new Scanner (new File(filenameScanner.nextLine()));
+            filenameScanner.close();
             String[] currentData = inputScanner.nextLine().split(" ");
             App.howManyPizzas = Integer.parseInt(currentData[0]);
 
