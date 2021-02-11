@@ -1,21 +1,48 @@
 package ServiceClasses;
 
+import java.lang.String;
 import java.util.ArrayList;
 
+import MainClasses.App;
+
 public class Team {
+    int teamID;
     int members;
     ArrayList<Pizza> pizzasGiven = new ArrayList<Pizza>();
+    ArrayList<String> ingredientsGiven = new ArrayList<String>();
+    int howManyIngredientsGiven, howManyUniqueIngredientsGiven;
 
-    public Team (int members) {
+    public Team (int teamID, int members) {
+        this.teamID = teamID;
         this.members = members;
     }
-    public int giveAPizza (Pizza pizza) {
-        if (this.pizzasGiven.size() == this.members) return -1;
+    public void giveAPizza (Pizza pizza) throws ArrayIndexOutOfBoundsException {
+        if (this.pizzasGiven.size() == this.members) throw new ArrayIndexOutOfBoundsException();
         this.pizzasGiven.add(pizza);
-        return 0;
+        for (String ingredient : pizza.ingredients) {
+            if (!ingredientsGiven.contains(ingredient)) ingredientsGiven.add(ingredient);
+        }
+        App.appendToLog("Pizza #" + pizza.getID() + " was given to Team #" + this.getID() + ".");
     }
 
     public void reportTeam () {
-        System.out.println("Members: " + members);
+        App.appendToLog("Members: " + members);
+    }
+
+    public void calculateHowManyIngredients () {
+        howManyIngredientsGiven = 0;
+        for (Pizza pizza : pizzasGiven) {
+            howManyIngredientsGiven += pizza.howManyIngredients;
+        }
+
+        howManyUniqueIngredientsGiven = ingredientsGiven.size();
+    }
+
+    public int getMembers () {
+        return members;
+    }
+
+    public int getID () {
+        return this.teamID;
     }
 }

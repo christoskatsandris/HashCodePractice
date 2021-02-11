@@ -2,12 +2,15 @@ package ServiceClasses;
 
 import java.util.ArrayList;
 import java.lang.String;
+import MainClasses.App;
 
 public class Pizza {
+    int pizzaID = 0;
     int howManyIngredients;
     ArrayList<String> ingredients = new ArrayList<String>();
 
-    public Pizza (int ingredients) {
+    public Pizza (int pizzaID, int ingredients) {
+        this.pizzaID = pizzaID;
         this.howManyIngredients = ingredients;
     }
 
@@ -18,10 +21,14 @@ public class Pizza {
     }
     
     public void reportPizza () {
-        System.out.print("Ingredients (" + howManyIngredients + "): ");
+        App.appendToLogNoSeparator("Ingredients (" + howManyIngredients + "): ");
         for (int i=0; i<howManyIngredients; i++) {
-            System.out.print(ingredients.get(i) + " ");
+            App.appendToLogNoSeparator(ingredients.get(i) + " ");
         }
-        System.out.print("\n");
+        App.appendToLogNoSeparator("\n");
+    }
+
+    public int getID () {
+        return this.pizzaID;
     }
 }
